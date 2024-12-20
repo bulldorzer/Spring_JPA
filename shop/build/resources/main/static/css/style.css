@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
+html{color : #444}
+a {text-decoration : none; letter-spacing : -0.5px; color : #444}
+
+header .inner{display: flex; gap: 10px; align-items: center; font-family : 'Montserrat';}
+header .logo { font-weight : 800;}
+header nav a{margin-right:10px}
+
+input, button {
+    padding : 8px 13px; margin-top : 5px;
+    border : 1px solid grey;  border-radius : 4px;
+    vertical-align : middle;
+}
+button { background : black; color : white; border : none;}
+input { display : block;}
+
+.detail {text-align : center;}
+.detail img{max-width : 30%; display : block; margin : auto;}
