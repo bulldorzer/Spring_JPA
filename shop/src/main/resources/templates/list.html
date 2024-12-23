@@ -12,9 +12,16 @@
     <div th:replace="~{ header.html:: header }"></div>
     <h1>itemList.</h1>
 <!-- for ( int i : arr) -->
+<!--  items : id, title. price  -->
 <div class="item" th:each="i : ${items}">
     <img src="https://placehold.co/300" alt="">
-    <a href="#">
+    <!--
+        @{ '/detail/{id}' (id=${i.id} ) }
+        @{} 안에 내용을 URL 형태로 변환하겠따
+        URL 형식 : /detail/{id}
+        (id=${i.id} ) - i.id값을 URL id 값에 매칭하겟다.
+    -->
+    <a th:href="@{ '/detail/{id}' (id=${i.id} ) }">
         <p>상품명 : <span th:text="${ i.title}"></span></p>
         <p>상품명 : <span th:text="${ i.price}"></span></p>
     </a>
