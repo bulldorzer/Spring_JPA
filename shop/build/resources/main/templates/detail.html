@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>상품 상세보기</title>
+</head>
+<body>
+<!--
+    action : 처리할 페이지(경로) methdod="get/post" 전송방법
+    1) get (엽서)
+        - 전송방법 : get -> url을 통해 쿼리스트링으로 파라미터 전송
+        - 데이터 노출, 짧은 데이터 보낼때
+    2) post (봉투)
+        - HTTP 요청 body에 담아서 보냄
+        - 숨겨진 데이터, 데이터양 제한 X, 캐싱X - 매번 다시 새롭게 디얼
+
+        * 캐싱 : 미리저장
+        - 자주 사용하는 데이터 임시 저장소에 저장
+  -->
+<div th:replace="~{ header.html:: header }"></div>
+<h2>상세 보기</h2>
+<div class="detail">
+    <img src="https://placehold.co/300" >
+    <p th:text="${item.title}">상품명</p>
+    <p th:text="${item.price + '원'}">가격</p>
+    <a th:href="@{'/edit/{id}'(id=${item.id})}">수정 버튼</a>
+    <button th:onclick="deleteItem([[${item.id}]])">삭제</button>
+</div>
+<!--
+    // fetch는 서버에 요청할때 사용하는 명령어 default 메서드는 get
+    // 메서드 종류는 get, post, delete, put 4종류 있음
+-->
+<script>
+    function deleteItem(id) {
+        if (confirm("정말로 아이템을 삭제하시겠습니까?")) {
+        // fetch는 서버에 요청할때 사용하는 명령어 default 메서드는 get
+        // 메서드 종류는 get, post, delete, put 4종류 있음
+            fetch(`/delete/${id}`, {method: 'DELETE'})
+                .then(response => {
+                    if (response.ok) {
+                        alert("삭제되었습니다.");
+                        // 유효한 경로로 리다이렉션
+                        window.location.href = "/list";
+                    } else {
+                        alert("삭제 실패");
+                    }
+                })
+                .catch(error => {
+                    console.error("삭제 중 오류 발생", error);
+                    alert("삭제 중 문제 발생");
+                });
+        }
+    }
+</script>
+</body>
+</html>
